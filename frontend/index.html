@@ -20,6 +20,19 @@
 			
 			<div v-if="path == '/tasks'">
 				<h2>My Tasks</h2>
+				<div v-if="tasks.length == 0">
+					<p>Moo!<br>(You don't have any tasks yet!)</p>
+					<button>Add a task</button>
+				</div>
+				<div v-else>
+					<div v-for="task in tasks">
+						<input type="text" v-model="task.name">
+						<input type="date" :value="getDate(task.time)" @input="setDate(task, $event.target.valueAsDate)">
+						<input type="time" :value="getTime(task.time)" @input="setTime(task, $event.target.valueAsDate)">
+						<p>{{ task.time }}</p>
+						<p>{{ task.name }}</p>
+					</div>
+				</div>
 			</div>
 			<div v-else-if="path == '/profile'">
 				<h2>My Profile</h2>
