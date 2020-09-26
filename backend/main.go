@@ -20,21 +20,22 @@ func sendMessage(w http.ResponseWriter, r *http.Request) {
 	if checkBadRequest(w, err) {
 		return
 	}
+	log.Print(string(b))
 	m, err := Json2Message(b)
+	log.Print(m)
 	if checkBadRequest(w, err) {
+		log.Printf("JSON: %s", err)
 		return
 	}
-	resp, err := Email(m)
+	err = Email(&m)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
+		log.Printf("Email: %s", err)
 	}
-	fmt.Fprint(w, resp)
 }
 
-var loads int64
 func root(w http.ResponseWriter, r *http.Request) {
-	loads++
-	fmt.Fprintf(w, "Test %d\n", loads)
+	fmt.Fprint(w, "Root\n")
 }
 
 func main() {
