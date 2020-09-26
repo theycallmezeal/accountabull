@@ -1,9 +1,18 @@
-const Foo = { template: '<div>foo</div>' };
-const Bar = { template: '<div>bar</div>' };
+const Tasks = { template: `
+	<div>foo</div>
+` };
+const Profile = { template: `
+	<div>bar</div>
+` };
+const Friends = { template: `
+	<div>bar</div>
+` };
 
 const routes = [
-  { path: '/foo', component: Foo },
-  { path: '/bar', component: Bar }
+	{ path: '/', redirect: '/tasks'},
+	{ path: '/tasks', component: Tasks },
+	{ path: '/profile', component: Profile },
+	{ path: '/friends', component: Friends }
 ];
 
 const router = new VueRouter({
