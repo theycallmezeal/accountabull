@@ -1,7 +1,15 @@
-var app = new Vue({
-	el: "#app",
-	data: {
-		"variable": 5
-	}
+const Foo = { template: '<div>foo</div>' };
+const Bar = { template: '<div>bar</div>' };
+
+const routes = [
+  { path: '/foo', component: Foo },
+  { path: '/bar', component: Bar }
+];
+
+const router = new VueRouter({
+  routes: routes
 });
-console.log("hi");
+
+const app = new Vue({
+  router
+}).$mount('#app');
