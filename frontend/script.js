@@ -87,13 +87,13 @@ const app = new Vue({
 						"twitter": this.twitter,
 						"linkedin": this.linkedin,
 						"email": this.email
-				}).then(response => {
-					console.log(response);
-				});
+					}).then(response => {
+						console.log(response);
+					});
+				}
 			}
 			this.tasks = this.tasks.filter(task => task.time > now);
 		},
-		
 		addFriend: function() {
 			this.friends.push({"name": "", "email": "", "id": nextFriendID});
 			nextFriendID++;
