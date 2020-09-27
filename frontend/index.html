@@ -23,6 +23,7 @@
 				<button v-on:click="addTask()">Add a task</button>
 				<div v-if="tasks.length == 0">
 					<p>Moo!<br>(You don't have any tasks yet!)</p>
+					<p><img src="accountabull_surprise.png" alt="surprised bull"></p>
 				</div>
 				<div v-else>
 					
@@ -45,12 +46,12 @@
 			</div>
 			<div v-else-if="path == '/friends'">
 				<h2>My Friends</h2>
+				<button v-on:click="addFriend()">Add a friend</button>
 				<div v-if="friends.length == 0">
 					<p>Moo!<br>(You don't have any friends yet!)</p>
-					<button v-on:click="addFriend()">Add a friend</button>
+					<p><img src="accountabull_surprise.png" alt="surprised bull"></p>
 				</div>
 				<div v-else>
-					<button v-on:click="addFriend()">Add a friend</button>
 					<div v-for="friend in friends">
 						<input type="text" placeholder="Name" v-model="friend.name">
 						<input type="email" placeholder="Email" v-model="friend.email">
