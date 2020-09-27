@@ -5,19 +5,19 @@
 {{if or .Phone .Facebook .Twitter .Linkedin .Email}}
 <ul>
 	{{with .Phone}}
-	<li>Call or Text them: {{.}}</li>
+	<li>Call or Text {{.Failer}}: {{.}}</li>
 	{{end}}
 	{{with .Facebook}}
-	<li><a href="{{.}}">Send them a Facebook Message</a>
+	<li><a href="{{.}}">Send {{.Failer}} a Facebook Message</a>
 	{{end}}
 	{{with .Twitter}}
-	<li><a href="{{.}}">Tweet at them</a></li>
+	<li><a href="{{.}}">@{{.Failer}} on Twitter</a></li>
 	{{end}}
 	{{with .Linkedin}}
-	<li>Send them a message on <a href="{{.}}">LinkedIn</a></li>
+	<li><a href="{{.}}">Share a Post on {{.Failer}}'s LinkedIn</a></li>
 	{{end}}
 	{{with .Email}}
-	<li><a href="{{.}}">Send them an email</a></li>
+	<li><a href="{{.}}">Send {{.Failer}} an email</a></li>
 	{{end}}
 </ul>
 {{else}}
