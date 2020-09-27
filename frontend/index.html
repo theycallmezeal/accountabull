@@ -29,13 +29,14 @@
 							<h2>My Tasks</h2>
 							<button v-on:click="addTask()" :disabled="!hasAllInfoFilledOut">Add a task</button>
 						</div>
-						<div v-if="!hasAllInfoFilledOut">
+						<div class="message" v-if="!hasAllInfoFilledOut">
 							<p>Moo!<br>(You haven't given us any information to hold you accountabull!)</p>
-							<p>Head to the <strong>Profile</strong> and <strong>Friends</strong> tabs to fill out your information.</p>
+							<hr>
+							<p>Head to the <span class="glyphicon glyphicon-user"></span> <strong>Profile</strong> and <span class="glyphicon glyphicon-list"></span> <strong>Friends</strong> tabs to fill out your information.</p>
 							<p>Make sure you give us your <strong>name</strong>, <strong>at least one contact method</strong>, and <strong>at least one friend!</strong></p>
 							<p><img src="accountabull_surprise.png" alt="surprised bull"></p>
 						</div>
-						<div v-else-if="tasks.length == 0">
+						<div class="message" v-else-if="tasks.length == 0">
 							<p>Moo!<br>(You don't have any tasks yet!)</p>
 							<p><img src="accountabull_surprise.png" alt="surprised bull"></p>
 						</div>
@@ -63,7 +64,7 @@
 							<h2>My Friends</h2>
 							<button v-on:click="addFriend()">Add a friend</button>
 						</div>
-						<div v-if="friends.length == 0">
+						<div class="message" v-if="friends.length == 0">
 							<p>Moo!<br>(You don't have any friends yet!)</p>
 							<p><img src="accountabull_surprise.png" alt="surprised bull"></p>
 						</div>
