@@ -36,10 +36,10 @@ func sendMessage(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/send", sendMessage)
-	http.HandleFunc("/users/", storeData)
+	//http.HandleFunc("/users/", storeData)
 	http.Handle("/", http.FileServer(http.Dir("../frontend")))
-	fmt.Print("Listening on 8080...\n")
-	log.Fatal(http.ListenAndServe(":8080", logRequest(http.DefaultServeMux)))
+	fmt.Print("Listening on 80...\n")
+	log.Fatal(http.ListenAndServeTLS(":443", "/etc/letsencrypt/live/accountabull.do.tookmund.com/fullchain.pem","/etc/letsencrypt/live/accountabull.do.tookmund.com/privkey.pem", logRequest(http.DefaultServeMux)))
 }
 
 func logRequest(handler http.Handler) http.Handler {
