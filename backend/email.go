@@ -16,7 +16,16 @@ func getMessage(m *Message) string {
 		bug += fmt.Sprintf("Call or Text him: %s\n", m.Phone)
 	}
 	if m.Facebook != "" {
-		//... and so on
+		bug += fmt.Sprintf("Send him a Facebook Message: %s\n", m.Facebook)
+	}
+	if m.Twitter != "" {
+		bug += fmt.Sprintf("Tweet at him: %s\n", m.Twitter)
+	}
+	if m.Linkedin != "" {
+		bug += fmt.Sprintf("Send him a message on LinkedIn: %s\n", m.Linkedin)
+	}
+	if m.Email != "" {
+		bug += fmt.Sprintf("Send him an email: %s\n", m.Email)
 	}
 	if bug == "" {
 		bug = fmt.Sprintf("%s is a coward and did not want to give us any contact information. But you know them, so go track them down.\n", m.Failer)
