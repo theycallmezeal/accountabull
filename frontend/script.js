@@ -1,12 +1,14 @@
 const Tasks = { };
 const Profile = { };
 const Friends = { };
+const Credits = { };
 
 const routes = [
 	{ path: '/', redirect: '/tasks'},
 	{ path: '/tasks', component: Tasks },
 	{ path: '/profile', component: Profile },
 	{ path: '/friends', component: Friends },
+	{ path: '/credits', component: Credits },
 	{ path: '*', redirect: '/tasks'}
 ];
 

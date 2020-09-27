@@ -21,6 +21,7 @@
 					<router-link to="/tasks" v-bind:class="{ active: path == '/tasks' }"><span class="glyphicon glyphicon-time"></span> Tasks</router-link>
 					<router-link to="/profile" v-bind:class="{ active: path == '/profile' }"><span class="glyphicon glyphicon-user"></span> Profile</router-link>
 					<router-link to="/friends" v-bind:class="{ active: path == '/friends' }"><span class="glyphicon glyphicon-list"></span> Friends</router-link>
+					<router-link to="/credits" v-bind:class="{ active: path == '/credits' }"><span class="glyphicon glyphicon-asterisk"></span> Credits</router-link>
 				</nav>
 				
 				<main>
@@ -101,6 +102,14 @@
 								<button class="x-button" v-on:click="removeFriend(friend.id)"><span class="glyphicon glyphicon-remove"></span></button>
 							</div>
 						</div>
+					</div>
+					<div id="credits" v-else-if="path == '/credits'">
+						<p class="help">Moo! Here's the people that made Accountabull.</p>
+						<h2>Credits</h2>
+						<p>Made by <a href="https://tookmund.com">Jacob Adams</a> and <a href="https://theycallmezeal.me">Adam An</a></p>
+						<p>Accountabull traced from the (adorable!) mascot of <a href="https://hackabull.io">Hackabull</a>
+						<p>Icons from <a href="https://glyphicons.com">Glyphicons</a></p>
+						<p>Made for <a href="https://ramhacks.vcu.edu">RamHacks!</a></p>
 					</div>
 				</main>
 			</div>
