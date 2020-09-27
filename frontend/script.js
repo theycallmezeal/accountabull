@@ -78,7 +78,7 @@ const app = new Vue({
 		addTask: function() {
 			var tomorrow = new Date();
 			tomorrow.setDate(tomorrow.getDate() + 1);
-			this.tasks.push({"name": "", "time": tomorrow, "id": nextTaskID});
+			this.tasks.unshift({"name": "", "time": tomorrow, "id": nextTaskID});
 			nextTaskID++;
 		},
 		removeTask: function(id) {
@@ -147,7 +147,7 @@ const app = new Vue({
 			this.tasks = this.tasks.filter(task => task.time > now);
 		},
 		addFriend: function() {
-			this.friends.push({"name": "", "email": "", "id": nextFriendID});
+			this.friends.unshift({"name": "", "email": "", "id": nextFriendID});
 			nextFriendID++;
 		},
 		removeFriend: function(id) {

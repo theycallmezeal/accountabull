@@ -25,54 +25,56 @@
 				
 				<main>
 					<div v-if="path == '/tasks'">
+						<p class="help">Moo! Put your <strong>tasks</strong> and <strong>deadlines</strong> here. <em>I'll hold you accountabull by letting your friends know if you miss a deadline!</em></p>
 						<div class="main-header">
 							<h2>My Tasks</h2>
 							<button v-on:click="addTask()" :disabled="!hasAllInfoFilledOut">Add a task</button>
 						</div>
 						<div class="message" v-if="!hasAllInfoFilledOut">
-							<p>Moo!<br>(You haven't given us any information to hold you accountabull!)</p>
+							<p>Moo!<br>You haven't given me any information to hold you accountabull!</p>
 							<hr>
 							<p>Head to the <span class="glyphicon glyphicon-user"></span> <strong>Profile</strong> and <span class="glyphicon glyphicon-list"></span> <strong>Friends</strong> tabs to fill out your information.</p>
-							<p>Make sure you give us your <strong>name</strong>, <strong>at least one contact method</strong>, and <strong>at least one friend!</strong></p>
+							<p>Make sure you give me your <strong>name</strong>, <strong>at least one contact method</strong>, and <strong>at least one friend!</strong></p>
 							<p><img src="accountabull_surprise.png" alt="surprised bull"></p>
 						</div>
 						<div class="message" v-else-if="tasks.length == 0">
 							<p>Moo!<br>(You don't have any tasks yet!)</p>
 							<p><img src="accountabull_surprise.png" alt="surprised bull"></p>
 						</div>
-						<div v-else>
-							<div v-for="task in tasks">
-								<input type="text" placeholder="Your task here..." v-model="task.name">
-								<input type="date" :value="getDate(task.time)" @input="setDate(task, $event.target.valueAsDate)">
-								<input type="time" :value="getTime(task.time)" @input="setTime(task, $event.target.valueAsDate)">
-								<button v-on:click="removeTask(task.id)">X</button>
-								<p>{{ task.time }}</p>
-							</div>
+						<div v-else v-for="task in tasks" class="task">
+							<label class="task-name-label">I need to...</label>
+							<input type="text" v-model="task.name" size="30" class="task-name-field">
+							<label class="task-datetime-label">...by this time</label>
+							<input type="date" :value="getDate(task.time)" @input="setDate(task, $event.target.valueAsDate)" class="task-date-field">
+							<input type="time" :value="getTime(task.time)" @input="setTime(task, $event.target.valueAsDate)" class="task-time-field">
+							<button class="x-button" v-on:click="removeTask(task.id)"><span class="glyphicon glyphicon-remove"></span></button>
 						</div>
 					</div>
-					<div v-else-if="path == '/profile'">
+					<div id="profile" v-else-if="path == '/profile'">
+						<p class="help">Moo! Put your <strong>name</strong> and <strong>contact information</strong> here. You need your <strong>name</strong> and <strong>at least one contact method</strong> to use Accountabull. <em>Your contact information will be sent to your friends - don't put anything you don't want them to know!</em></p>
 						<h2>My Profile</h2>
-						<p><label>Name</label><input type="text" v-model="name"></p>
-						<p><label>Email</label><input type="email" v-model="email"></p>
-						<p><label>Phone number</label><input type="tel" v-model="phone"></p>
-						<p><label>Facebook</label> facebook.com/<input type="text" v-model="facebook"></p>
-						<p><label>Twitter</label> @<input type="text" v-model="twitter"></p>
-						<p><label>LinkedIn</label> linkedin.com/<input type="text" v-model="linkedin"></p>
+						<div class="form-row"><div class="field"><label>Name</label><span><input type="text" v-model="name"></span></div></div>
+						<div class="form-row"><div class="field"><label>Email</label><span><input type="email" v-model="email"></span></div></div>
+						<div class="form-row"><div class="field"><label>Phone number</label><span><input type="tel" v-model="phone"></span></div></div>
+						<div class="form-row"><div class="field"><label>Facebook</label> <span>facebook.com/<input type="text" v-model="facebook"></span></div></div>
+						<div class="form-row"><div class="field"><label>Twitter</label> <span>@<input type="text" v-model="twitter"></span></div></div>
+						<div class="form-row"><div class="field"><label>LinkedIn</label> <span>linkedin.com/in/<input type="text" v-model="linkedin"></span></div></div>
 					</div>
 					<div v-else-if="path == '/friends'">
+						<p class="help">Moo! Put your <strong>friends' names</strong> and <strong>emails</strong> here. You need your <strong>at least one friend</strong> to use Accountabull. <em>I'll automatically email every friend you put here whenever you miss a deadline - choose your friends wisely!</em></p>
 						<div class="main-header">
 							<h2>My Friends</h2>
 							<button v-on:click="addFriend()">Add a friend</button>
 						</div>
 						<div class="message" v-if="friends.length == 0">
-							<p>Moo!<br>(You don't have any friends yet!)</p>
+							<p>Moo!<br>You don't have any friends yet!</p>
 							<p><img src="accountabull_surprise.png" alt="surprised bull"></p>
 						</div>
 						<div v-else>
-							<div v-for="friend in friends">
-								<input type="text" placeholder="Name" v-model="friend.name">
-								<input type="email" placeholder="Email" v-model="friend.email">
-								<button v-on:click="removeFriend(friend.id)">X</button>
+							<div class="form-row" v-for="friend in friends">
+								<div class="field"><label>Name</label><span><input type="text" v-model="friend.name"></span></div>
+								<div class="field"><label>Email</label><span><input type="email" v-model="friend.email"></span></div>
+								<button class="x-button" v-on:click="removeFriend(friend.id)"><span class="glyphicon glyphicon-remove"></span></button>
 							</div>
 						</div>
 					</div>

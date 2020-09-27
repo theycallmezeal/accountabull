@@ -4,15 +4,22 @@
   --black: #2F2D2E;
   --blue: #048BA8;
   --navy: #2E4057;
-  --orange: #2E4057;
+  --orange: #F18F01;
+  --dark-orange: #bf4d00;
   --green: #99C24D;
   --gray: #ada5a9;
   --dark-gray: #635e61;
 }
 
+html {
+	overflow-y: scroll;
+}
+
 body {
 	font-family: Poppins, sans-serif;
 	color: var(--black);
+	border-top: solid 5px var(--blue);
+	margin: 0px;
 }
 
 input, button {
@@ -26,6 +33,10 @@ img {
 a {
 	text-decoration: none;
 	color: var(--navy);
+}
+
+input {
+	margin: 0px;
 }
 
 button {
@@ -42,10 +53,41 @@ button:disabled {
 	border-color: var(--dark-gray);
 }
 
+.x-button {
+	border-bottom: solid 2px var(--dark-orange);
+	background-color: var(--orange);
+	padding: 3px 5px;
+}
+
+label {
+	color: var(--dark-gray);
+	text-transform: uppercase;
+	font-size: 0.8em;
+}
+
 hr {
 	border: none;
 	height: 1px;
 	background-color: var(--gray);
+}
+
+.form-row {
+	display: flex;
+	align-items: flex-end;
+	margin-bottom: 30px;
+}
+
+.form-row > * {
+	margin-right: 30px;
+}
+
+.field {
+	display: flex;
+	flex-direction: column;
+}
+
+.field > * {
+	display: block;
 }
 
 header {
@@ -63,11 +105,12 @@ header img {
 	width: 50%;
 	margin-left: auto;
 	margin-right: auto;
-	display: flex;
+	display: grid;
+	grid-template-rows: 1fr;
+	grid-template-columns: 20% 80%;
 }
 
 nav {
-	width: 20%;
 	border-right: solid 1px var(--gray);
 }
 
@@ -85,11 +128,10 @@ nav > * {
 }
 
 main {
-	width: 80%;
 	padding-left: 30px;
 }
 
-main :first-child {
+main h2 {
 	margin-top: 15px;
 }
 
@@ -105,4 +147,60 @@ main img {
 
 .message {
 	text-align: center;
+}
+
+.help {
+	border-radius: 5px;
+	border-top: solid 5px var(--green);
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.20);
+	padding: 10px;
+	padding-left: 160px;
+	background-image: url("accountabull_helpful.png");
+	background-position: 10px center;
+	background-repeat: no-repeat;
+	font-size: 90%;
+	line-height: 200%;
+}
+
+.task {
+	display: grid;
+	grid-template-columns: 2fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr 1fr;
+	column-gap: 30px;
+	row-gap: 10px;
+	margin-bottom: 30px;
+}
+
+.task-name-label {
+	grid-column: 1 / span 1;
+	grid-row: 1 / span 1;
+	justify-self: start;
+}
+
+.task-name-field {
+	grid-column: 1 / span 1;
+	grid-row: 2 / span 1;	
+}
+
+.task-datetime-label {
+	grid-column: 2 / span 1;
+	grid-row: 1 / span 1;
+	justify-self: start;
+}
+
+.task-date-field {
+	grid-column: 2 / span 1;
+	grid-row: 2 / span 1;
+}
+
+.task-time-field {
+	grid-column: 2 / span 1;
+	grid-row: 3 / span 1;
+}
+
+.task .x-button {
+	grid-column: 3 / span 1;
+	grid-row: 1 / span 1;
+	align-self: start;
+	justify-self: start;
 }
