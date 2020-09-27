@@ -21,7 +21,13 @@
 			<div v-if="path == '/tasks'">
 				<h2>My Tasks</h2>
 				<button v-on:click="addTask()">Add a task</button>
-				<div v-if="tasks.length == 0">
+				<div v-if="!hasAllInfoFilledOut">
+					<p>Moo!<br>(You haven't given us any information to hold you accountabull!)</p>
+					<p>Head to the <strong>Profile</strong> and <strong>Friends</strong> tabs to fill out your information.</p>
+					<p>Make sure you give us your <strong>name</strong>, <strong>at least one contact method</strong>, and <strong>at least one friend!</strong></p>
+					<p><img src="accountabull_surprise.png" alt="surprised bull"></p>
+				</div>
+				<div v-else="tasks.length == 0">
 					<p>Moo!<br>(You don't have any tasks yet!)</p>
 					<p><img src="accountabull_surprise.png" alt="surprised bull"></p>
 				</div>

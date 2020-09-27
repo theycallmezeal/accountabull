@@ -103,8 +103,11 @@ const app = new Vue({
 		}
 	},
 	computed: {
-		path() {
+		path: function () {
 			return this.$route.path;
+		},
+		hasAllInfoFilledOut: function () {
+			return this.name !== "" && (this.email !== "" || this.phone !== "" || this.facebook !== "" || this.twitter !== "" || this.linkedin !== "") && this.friends.length > 0
 		}
 	}
 });
