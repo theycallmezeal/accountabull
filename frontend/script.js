@@ -13,6 +13,36 @@ const routes = [
 var nextTaskID = 0;
 var nextFriendID = 0;
 
+// https://stackoverflow.com/a/2117523
+function uuidv4() {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  );
+}
+
+// w3schools cookie code
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+  var expires = "expires="+d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
 const app = new Vue({
 	el: "#app",
 	router: new VueRouter({ routes: routes }),
@@ -25,8 +55,26 @@ const app = new Vue({
 		facebook: "",
 		twitter: "",
 		linkedin: "",
+		id: "",
 	},
 	methods: {
+		saveData: function () {
+			var XHR = new XMLHttpRequest();
+			XHR.open("POST", "/users/"+this.id)
+			XHR.addEventListener("load", function(event) {
+				console.log(event);
+			});
+			XHR.send(JSON.stringify({
+				"tasks": this.tasks,
+				"friends": this.friends,
+				"name": this.name,
+				"email": this.email,
+				"phone": this.phone,
+				"facebook": this.facebook,
+				"twitter": this.twitter,
+				"linkedin": this.linkedin,
+			}));
+		},
 		addTask: function() {
 			var tomorrow = new Date();
 			tomorrow.setDate(tomorrow.getDate() + 1);
@@ -78,9 +126,12 @@ const app = new Vue({
 			var now = new Date();
 			for (i in this.tasks) {
 				if (this.tasks[i].time < now) {
-					// SEND REQUEST TO EMAIL HERE.
-					/**
-					this.$http.post("localhost:8080/send", {
+					var XHR = new XMLHttpRequest();
+					XHR.open("POST", "/send")
+					XHR.addEventListener("load", function(event) {
+						console.log(event);
+					});
+					XHR.send(JSON.stringify({
 						"recipients": this.friends,
 						"failer": this.name,
 						"task": this.tasks[i].name,
@@ -90,10 +141,7 @@ const app = new Vue({
 						"twitter": this.twitter,
 						"linkedin": this.linkedin,
 						"email": this.email
-					}).then(response => {
-						console.log(response);
-					});
-					**/
+					}));
 				}
 			}
 			this.tasks = this.tasks.filter(task => task.time > now);
@@ -118,7 +166,32 @@ const app = new Vue({
 		this.$nextTick(function () {
 			window.setInterval(() => {
 				this.removeOverdueTasks();
+				this.saveData();
 			},1000);
 		})
+		this.id = getCookie("id");
+		if (this.id == "") {
+			this.id = uuidv4();
+		} else {
+			var vue = this;
+			var XHR = new XMLHttpRequest();
+			XHR.open("GET", "/users/"+this.id)
+			XHR.addEventListener("load", function(event) {
+				console.log(XHR.response);
+				if (XHR.response == "" ||
+					XHR.response == "404 page not found") return;
+				var newdata = JSON.parse(XHR.response);
+				vue.tasks = newdata.tasks;
+				vue.friends = newdata.friends
+				vue.name = newdata.name
+				vue.email = newdata.email
+				vue.phone = newdata.phone
+				vue.facebook = newdata.facebook
+				vue.twitter = newdata.twitter
+				vue.linkedin = newdata.linkedin
+			});
+			XHR.send()
+		}
+   		setCookie("id", this.id, 365);
     }
 });
