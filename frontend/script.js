@@ -184,9 +184,6 @@ const app = new Vue({
 					XHR.response == "404 page not found") return;
 				var newdata = JSON.parse(XHR.response);
 				vue.tasks = newdata.tasks;
-				for (var i in this.tasks) {
-					vue.tasks[i].time = new Date(vue.tasks[i].time)
-				}
 				vue.friends = newdata.friends
 				vue.name = newdata.name
 				vue.email = newdata.email
