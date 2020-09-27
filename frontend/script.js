@@ -160,7 +160,12 @@ const app = new Vue({
 		}
 	},
 	mounted: function () {
-		var newdata = JSON.parse(getCookie("data"));
+		var newdata;
+		try {
+			newdata = JSON.parse(getCookie("data"));
+		} catch {
+			return
+		}
 		this.tasks = newdata.tasks;
 		for (var i in this.tasks) {
 			this.tasks[i].time = new Date(this.tasks[i].time)
