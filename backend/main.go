@@ -27,7 +27,7 @@ func sendMessage(w http.ResponseWriter, r *http.Request) {
 		log.Printf("JSON: %s", err)
 		return
 	}
-	err = Email(&m)
+	err = Email(m)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		log.Printf("Email: %s", err)

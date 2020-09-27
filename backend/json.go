@@ -14,14 +14,15 @@ type Message struct {
 	Twitter string `json:"twitter"`
 	Linkedin string `json:"linkedin"`
 	Email string `json:"email"`
+	Recipient string
 }
 type Recipient struct {
 	Name string `json:"name"`
 	Email string `json:"email"`
 }
 
-func Json2Message(j []byte) (Message, error) {
-	var m Message
+func Json2Message(j []byte) (*Message, error) {
+	m := new(Message)
 	err := json.Unmarshal(j, &m)
 	return m, err
 }
