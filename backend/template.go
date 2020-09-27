@@ -27,5 +27,6 @@ func ReadableTime(ts string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+	t = t.Local()
 	return t.Format(time.Kitchen), nil
 }
