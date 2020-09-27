@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+:root {
+  --black: #2F2D2E;
+  --blue: #048BA8;
+  --navy: #2E4057;
+  --orange: #2E4057;
+  --green: #99C24D;
+  --gray: #ada5a9;
+  --dark-gray: #635e61;
+}
+
+body {
+	font-family: Poppins, sans-serif;
+	color: var(--black);
+}
+
+input, button {
+	font-family: inherit;
+}
+
+img {
+	height: 200px;
+}
+
+a {
+	text-decoration: none;
+	color: var(--navy);
+}
+
+button {
+	background-color: var(--blue);
+	padding: 10px;
+	border: none;
+	border-bottom: solid 5px var(--navy);
+	border-radius: 5px;
+	color: white;
+}
+
+button:disabled {
+	background-color: var(--gray);
+	border-color: var(--dark-gray);
+}
+
+header {
+	display: flex;
+	align-items: center;
+	color: var(--navy);
+	justify-content: center;
+}
+
+header img {
+	height: 100px;
+}
+
+#body {
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+}
+
+nav {
+	width: 20%;
+	border-right: solid 1px var(--navy);
+}
+
+nav > * {
+	display: block;
+	padding-right: 30px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+.active {
+	color: var(--blue);
+}
+
+main {
+	width: 80%;
+	padding-left: 30px;
+}
+
+main :first-child {
+	margin-top: 15px;
+}
+
+main img {
+	text-align: center;
+}
+
+.main-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+}
