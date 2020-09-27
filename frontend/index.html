@@ -20,16 +20,17 @@
 			
 			<div v-if="path == '/tasks'">
 				<h2>My Tasks</h2>
+				<button v-on:click="addTask()">Add a task</button>
 				<div v-if="tasks.length == 0">
 					<p>Moo!<br>(You don't have any tasks yet!)</p>
-					<button v-on:click="addTask()">Add a task</button>
 				</div>
 				<div v-else>
-					<button v-on:click="addTask()">Add a task</button>
+					
 					<div v-for="task in tasks">
 						<input type="text" placeholder="Your task here..." v-model="task.name">
 						<input type="date" :value="getDate(task.time)" @input="setDate(task, $event.target.valueAsDate)">
 						<input type="time" :value="getTime(task.time)" @input="setTime(task, $event.target.valueAsDate)">
+						<button v-on:click="removeTask(task.id)">X</button>
 					</div>
 				</div>
 			</div>
@@ -53,6 +54,7 @@
 					<div v-for="friend in friends">
 						<input type="text" placeholder="Name" v-model="friend.name">
 						<input type="email" placeholder="Email" v-model="friend.email">
+						<button v-on:click="removeFriend(friend.id)">X</button>
 					</div>
 				</div>
 			</div>

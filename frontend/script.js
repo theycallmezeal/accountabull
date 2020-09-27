@@ -10,6 +10,9 @@ const routes = [
 	{ path: '*', redirect: '/tasks'}
 ];
 
+var nextTaskID = 0;
+var nextFriendID = 0;
+
 const app = new Vue({
 	el: "#app",
 	router: new VueRouter({ routes: routes }),
@@ -27,7 +30,11 @@ const app = new Vue({
 		addTask: function() {
 			var tomorrow = new Date();
 			tomorrow.setDate(tomorrow.getDate() + 1);
-			this.tasks.push({"name": "", "time": tomorrow});
+			this.tasks.push({"name": "", "time": tomorrow, "id": nextTaskID});
+			nextTaskID++;
+		},
+		removeTask: function(id) {
+			this.tasks = this.tasks.filter(task => task.id != id);
 		},
 		/* https://stackoverflow.com/questions/48794066/vuejs-how-to-bind-a-datetime */
 		getDate: function(datetime) {
@@ -66,7 +73,11 @@ const app = new Vue({
 		},
 		
 		addFriend: function() {
-			this.friends.push({"name": "", "email": ""});
+			this.friends.push({"name": "", "email": "", "id": nextFriendID});
+			nextFriendID++;
+		},
+		removeFriend: function(id) {
+			this.friends = this.friends.filter(friend => friend.id != id);
 		}
 	},
 	computed: {
