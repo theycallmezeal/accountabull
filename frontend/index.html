@@ -50,7 +50,7 @@
 					<button v-on:click="addFriend()">Add a friend</button>
 				</div>
 				<div v-else>
-					<button v-on:click="addFriend()">Add a task</button>
+					<button v-on:click="addFriend()">Add a friend</button>
 					<div v-for="friend in friends">
 						<input type="text" placeholder="Name" v-model="friend.name">
 						<input type="email" placeholder="Email" v-model="friend.email">
