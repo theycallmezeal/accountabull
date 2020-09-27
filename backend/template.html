@@ -8,16 +8,16 @@
 	<li>Call or Text {{.Failer}}: {{.Phone}}</li>
 	{{end}}
 	{{if .Facebook}}
-	<li><a href="{{.Facebook}}">Send {{.Failer}} a Facebook Message</a>
+	<li><a href="https://facebook.com/{{.Facebook}}">Send {{.Failer}} a Facebook Message</a>
 	{{end}}
 	{{if .Twitter}}
-	<li><a href="{{.Twitter}}">@{{.Failer}} on Twitter</a></li>
+	<li><a href="https://twitter.com/{{.Twitter}}">@{{.Failer}} on Twitter</a></li>
 	{{end}}
 	{{if .Linkedin}}
-	<li><a href="{{.Linkedin}}">Share a Post on {{.Failer}}'s LinkedIn</a></li>
+	<li><a href="https://linkedin.com/in/{{.Linkedin}}">Share a Post on {{.Failer}}'s LinkedIn</a></li>
 	{{end}}
 	{{if .Email}}
-	<li><a href="{{.Email}}">Send {{.Failer}} an email</a></li>
+	<li><a href="mailto:{{.Email}}">Send {{.Failer}} an email</a></li>
 	{{end}}
 </ul>
 {{else}}
