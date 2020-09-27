@@ -39,10 +39,12 @@ const app = new Vue({
 		/* https://stackoverflow.com/questions/48794066/vuejs-how-to-bind-a-datetime */
 		getDate: function(datetime) {
 			const offset = datetime.getTimezoneOffset()
-			datetime = new Date(datetime.getTime() - (offset*60*1000))
+			datetime = new Date(datetime.getTime() + (offset*60*1000))
 			return datetime.toISOString().split('T')[0];
 		},
 		setDate: function(task, datetime) {
+			const offset = datetime.getTimezoneOffset()
+			datetime = new Date(datetime.getTime() + (offset*60*1000))
 			var hours = task.time.getHours();
 			var minutes = task.time.getMinutes();
 			datetime.setHours(hours);
@@ -77,6 +79,7 @@ const app = new Vue({
 			for (i in this.tasks) {
 				if (this.tasks[i].time < now) {
 					// SEND REQUEST TO EMAIL HERE.
+					/**
 					this.$http.post("localhost:8080/send", {
 						"recipients": this.friends,
 						"failer": this.name,
@@ -90,6 +93,7 @@ const app = new Vue({
 					}).then(response => {
 						console.log(response);
 					});
+					**/
 				}
 			}
 			this.tasks = this.tasks.filter(task => task.time > now);
@@ -109,5 +113,12 @@ const app = new Vue({
 		hasAllInfoFilledOut: function () {
 			return this.name !== "" && (this.email !== "" || this.phone !== "" || this.facebook !== "" || this.twitter !== "" || this.linkedin !== "") && this.friends.length > 0
 		}
-	}
+	},
+	mounted: function () {
+		this.$nextTick(function () {
+			window.setInterval(() => {
+				this.removeOverdueTasks();
+			},1000);
+		})
+    }
 });
