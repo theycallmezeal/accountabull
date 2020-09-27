@@ -1,0 +1,26 @@
+<h1>{{.Failer}} Failed to Complete a Task!</h1>
+<p>Hi there {{.Recipient}}!</p>
+<p>Just wanted to let you know that {{.Failer}} failed to Complete
+"<span>{{.Task}}</span>" by the deadline of {{.Time}} 🐄.</p>
+{{if or .Phone .Facebook .Twitter .Linkedin .Email}}
+<ul>
+	{{with .Phone}}
+	<li>Call or Text them: {{.}}</li>
+	{{end}}
+	{{with .Facebook}}
+	<li><a href="{{.}}">Send them a Facebook Message</a>
+	{{end}}
+	{{with .Twitter}}
+	<li><a href="{{.}}">Tweet at them</a></li>
+	{{end}}
+	{{with .Linkedin}}
+	<li>Send them a message on <a href="{{.}}">LinkedIn</a></li>
+	{{end}}
+	{{with .Email}}
+	<li><a href="{{.}}">Send them an email</a></li>
+	{{end}}
+</ul>
+{{else}}
+<p>{{.Failer}} is a coward and did not want to give us any contact information.
+But you know them, so go track them down.</p>
+{{end}}
