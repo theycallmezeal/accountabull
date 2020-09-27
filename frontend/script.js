@@ -77,6 +77,9 @@ const app = new Vue({
 			for (i in this.tasks) {
 				if (this.tasks[i].time < now) {
 					// SEND REQUEST TO EMAIL HERE.
+					// available variables:
+					// this.tasks[i].time
+					// this.tasks[i].name
 				}
 			}
 			this.tasks = this.tasks.filter(task => task.time > now);
