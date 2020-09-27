@@ -19,7 +19,7 @@ const app = new Vue({
 	data: {
 		tasks: [],
 		friends: [],
-		name: [],
+		name: "",
 		email: "",
 		phone: "",
 		facebook: "",
