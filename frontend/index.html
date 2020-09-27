@@ -5,68 +5,74 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=1">
 		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="glyphicons.css">
 		<script src="https://unpkg.com/vue/dist/vue.js"></script>
 		<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 		<script src="script.js" defer></script>
 	</head>
 	<body>
 		<div id="app">
-			<h1>Accountabull</h1>
-			<nav>
-				<router-link to="/tasks">Tasks</router-link>
-				<router-link to="/profile">Profile</router-link>
-				<router-link to="/friends">Friends</router-link>
-			</nav>
-			
-			<main>
-				<div v-if="path == '/tasks'">
-					<h2>My Tasks</h2>
-					<button v-on:click="addTask()" :disabled="!hasAllInfoFilledOut">Add a task</button>
-					<div v-if="!hasAllInfoFilledOut">
-						<p>Moo!<br>(You haven't given us any information to hold you accountabull!)</p>
-						<p>Head to the <strong>Profile</strong> and <strong>Friends</strong> tabs to fill out your information.</p>
-						<p>Make sure you give us your <strong>name</strong>, <strong>at least one contact method</strong>, and <strong>at least one friend!</strong></p>
-						<p><img src="accountabull_surprise.png" alt="surprised bull"></p>
-					</div>
-					<div v-else-if="tasks.length == 0">
-						<p>Moo!<br>(You don't have any tasks yet!)</p>
-						<p><img src="accountabull_surprise.png" alt="surprised bull"></p>
-					</div>
-					<div v-else>
-						<div v-for="task in tasks">
-							<input type="text" placeholder="Your task here..." v-model="task.name">
-							<input type="date" :value="getDate(task.time)" @input="setDate(task, $event.target.valueAsDate)">
-							<input type="time" :value="getTime(task.time)" @input="setTime(task, $event.target.valueAsDate)">
-							<button v-on:click="removeTask(task.id)">X</button>
-							<p>{{ task.time }}</p>
+			<header>
+				<h1>Accountabull</h1>
+				<p><img src="accountabull.png" alt="happy bull"></p>
+			</header>
+			<div id="body">
+				<nav>
+					<router-link to="/tasks" class="active"><span class="glyphicon glyphicon-time"></span> Tasks</router-link>
+					<router-link to="/profile"><span class="glyphicon glyphicon-user"></span> Profile</router-link>
+					<router-link to="/friends"><span class="glyphicon glyphicon-list"></span> Friends</router-link>
+				</nav>
+				
+				<main>
+					<div v-if="path == '/tasks'">
+						<h2>My Tasks</h2>
+						<button v-on:click="addTask()" :disabled="!hasAllInfoFilledOut">Add a task</button>
+						<div v-if="!hasAllInfoFilledOut">
+							<p>Moo!<br>(You haven't given us any information to hold you accountabull!)</p>
+							<p>Head to the <strong>Profile</strong> and <strong>Friends</strong> tabs to fill out your information.</p>
+							<p>Make sure you give us your <strong>name</strong>, <strong>at least one contact method</strong>, and <strong>at least one friend!</strong></p>
+							<p><img src="accountabull_surprise.png" alt="surprised bull"></p>
+						</div>
+						<div v-else-if="tasks.length == 0">
+							<p>Moo!<br>(You don't have any tasks yet!)</p>
+							<p><img src="accountabull_surprise.png" alt="surprised bull"></p>
+						</div>
+						<div v-else>
+							<div v-for="task in tasks">
+								<input type="text" placeholder="Your task here..." v-model="task.name">
+								<input type="date" :value="getDate(task.time)" @input="setDate(task, $event.target.valueAsDate)">
+								<input type="time" :value="getTime(task.time)" @input="setTime(task, $event.target.valueAsDate)">
+								<button v-on:click="removeTask(task.id)">X</button>
+								<p>{{ task.time }}</p>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div v-else-if="path == '/profile'">
-					<h2>My Profile</h2>
-					<p><label>Name</label><input type="text" v-model="name"></p>
-					<p><label>Email</label><input type="email" v-model="email"></p>
-					<p><label>Phone number</label><input type="tel" v-model="phone"></p>
-					<p><label>Facebook</label> facebook.com/<input type="text" v-model="facebook"></p>
-					<p><label>Twitter</label> @<input type="text" v-model="twitter"></p>
-					<p><label>LinkedIn</label> linkedin.com/<input type="text" v-model="linkedin"></p>
-				</div>
-				<div v-else-if="path == '/friends'">
-					<h2>My Friends</h2>
-					<button v-on:click="addFriend()">Add a friend</button>
-					<div v-if="friends.length == 0">
-						<p>Moo!<br>(You don't have any friends yet!)</p>
-						<p><img src="accountabull_surprise.png" alt="surprised bull"></p>
+					<div v-else-if="path == '/profile'">
+						<h2>My Profile</h2>
+						<p><label>Name</label><input type="text" v-model="name"></p>
+						<p><label>Email</label><input type="email" v-model="email"></p>
+						<p><label>Phone number</label><input type="tel" v-model="phone"></p>
+						<p><label>Facebook</label> facebook.com/<input type="text" v-model="facebook"></p>
+						<p><label>Twitter</label> @<input type="text" v-model="twitter"></p>
+						<p><label>LinkedIn</label> linkedin.com/<input type="text" v-model="linkedin"></p>
 					</div>
-					<div v-else>
-						<div v-for="friend in friends">
-							<input type="text" placeholder="Name" v-model="friend.name">
-							<input type="email" placeholder="Email" v-model="friend.email">
-							<button v-on:click="removeFriend(friend.id)">X</button>
+					<div v-else-if="path == '/friends'">
+						<h2>My Friends</h2>
+						<button v-on:click="addFriend()">Add a friend</button>
+						<div v-if="friends.length == 0">
+							<p>Moo!<br>(You don't have any friends yet!)</p>
+							<p><img src="accountabull_surprise.png" alt="surprised bull"></p>
+						</div>
+						<div v-else>
+							<div v-for="friend in friends">
+								<input type="text" placeholder="Name" v-model="friend.name">
+								<input type="email" placeholder="Email" v-model="friend.email">
+								<button v-on:click="removeFriend(friend.id)">X</button>
+							</div>
 						</div>
 					</div>
-				</div>
-			</main>
+				</main>
+			</div>
 		</div>
 	</body>
 </html>
