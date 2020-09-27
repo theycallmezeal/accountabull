@@ -9,7 +9,7 @@ import (
 
 func getMessage(m *Message) string {
 	subject := fmt.Sprintf("Subject: %s Failed to Complete a Task\n", m.Failer)
-	from := "From: accountabull@sendgrid.tookmund.com\n"
+	from := `From: "Accountabull" <accountabull@sendgrid.tookmund.com>\n`
 	mime := "MIME-version: 1.0;\nContent-Type: text/plain; charset=\"UTF-8\";\n\n"
 	bug := ""
 	if m.Phone != "" {
@@ -30,7 +30,7 @@ func getMessage(m *Message) string {
 	if bug == "" {
 		bug = fmt.Sprintf("%s is a coward and did not want to give us any contact information. But you know them, so go track them down.\n", m.Failer)
 	}
-	body := fmt.Sprintf("%s failed to do %s at %s\n%s", m.Failer, m.Task, m.Time, bug)
+	body := fmt.Sprintf(`%s failed to complete "%s" at %s\n%s`, m.Failer, m.Task, m.Time, bug)
 	return fmt.Sprint(subject, from, mime, body)
 }
 
