@@ -18,9 +18,9 @@
 			</header>
 			<div id="body">
 				<nav>
-					<router-link to="/tasks" class="active"><span class="glyphicon glyphicon-time"></span> Tasks</router-link>
-					<router-link to="/profile"><span class="glyphicon glyphicon-user"></span> Profile</router-link>
-					<router-link to="/friends"><span class="glyphicon glyphicon-list"></span> Friends</router-link>
+					<router-link to="/tasks" v-bind:class="{ active: path == '/tasks' }"><span class="glyphicon glyphicon-time"></span> Tasks</router-link>
+					<router-link to="/profile" v-bind:class="{ active: path == '/profile' }"><span class="glyphicon glyphicon-user"></span> Profile</router-link>
+					<router-link to="/friends" v-bind:class="{ active: path == '/friends' }"><span class="glyphicon glyphicon-list"></span> Friends</router-link>
 				</nav>
 				
 				<main>
