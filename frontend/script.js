@@ -61,12 +61,7 @@ const app = new Vue({
 	},
 	methods: {
 		saveData: function () {
-			var XHR = new XMLHttpRequest();
-			XHR.open("POST", "/users/"+this.id)
-			XHR.addEventListener("load", function(event) {
-				console.log(event);
-			});
-			XHR.send(JSON.stringify({
+			setCookie("data", JSON.stringify({
 				"tasks": this.tasks,
 				"friends": this.friends,
 				"name": this.name,
@@ -75,7 +70,7 @@ const app = new Vue({
 				"facebook": this.facebook,
 				"twitter": this.twitter,
 				"linkedin": this.linkedin,
-			}));
+			}), 365);
 		},
 		addTask: function() {
 			var tomorrow = new Date();
@@ -165,35 +160,23 @@ const app = new Vue({
 		}
 	},
 	mounted: function () {
+		var newdata = JSON.parse(getCookie("data"));
+		this.tasks = newdata.tasks;
+		for (var i in this.tasks) {
+			this.tasks[i].time = new Date(this.tasks[i].time)
+		}
+		this.friends = newdata.friends
+		this.name = newdata.name
+		this.email = newdata.email
+		this.phone = newdata.phone
+		this.facebook = newdata.facebook
+		this.twitter = newdata.twitter
+		this.linkedin = newdata.linkedin
 		this.$nextTick(function () {
 			window.setInterval(() => {
 				this.removeOverdueTasks();
 				this.saveData();
 			},1000);
-		})
-		this.id = getCookie("id");
-		if (this.id == "") {
-			this.id = uuidv4();
-		} else {
-			var vue = this;
-			var XHR = new XMLHttpRequest();
-			XHR.open("GET", "/users/"+this.id)
-			XHR.addEventListener("load", function(event) {
-				console.log(XHR.response);
-				if (XHR.response == "" ||
-					XHR.response == "404 page not found") return;
-				var newdata = JSON.parse(XHR.response);
-				vue.tasks = newdata.tasks;
-				vue.friends = newdata.friends
-				vue.name = newdata.name
-				vue.email = newdata.email
-				vue.phone = newdata.phone
-				vue.facebook = newdata.facebook
-				vue.twitter = newdata.twitter
-				vue.linkedin = newdata.linkedin
-			});
-			XHR.send()
-		}
-   		setCookie("id", this.id, 365);
+		});
     }
 });
