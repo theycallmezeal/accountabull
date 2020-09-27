@@ -1,26 +1,29 @@
-<h1>{{.Failer}} Failed to Complete a Task!</h1>
-<p>Hi there {{.Recipient}}!</p>
-<p>Just wanted to let you know that {{.Failer}} failed to complete
-"<span>{{.Task}}</span>" by the deadline of {{.Time}} 🐄.</p>
-{{if or .Phone .Facebook .Twitter .Linkedin .Email}}
-<ul>
-	{{if .Phone}}
-	<li>Call or Text {{.Failer}}: {{.Phone}}</li>
+<div style="font-family: sans-serif">
+	<h1 style="color: #2E4057"><img src="accountabull_helpful.png" alt="helpful bull"> {{.Failer}} Failed to Complete a Task!</h1>
+	<p>Hi there <strong style="color: #048BA8">{{.Recipient}}!</strong></p>
+	<p>Just wanted to let you know that <strong style="color: #048BA8">{{.Failer}}</strong> failed to complete
+	"<span><strong style="color: #048BA8">{{.Task}}</strong></span>" by the deadline of <strong style="color: #048BA8">{{.Time}}</strong>.</p>
+	{{if or .Phone .Facebook .Twitter .Linkedin .Email}}
+	<ul>
+		{{if .Phone}}
+		<li>Call or Text {{.Failer}}: <a href="tel:{{.Phone}}">{{.Phone}}</a></li>
+		{{end}}
+		{{if .Facebook}}
+		<li><a href="https://facebook.com/{{.Facebook}}">Send {{.Failer}} a Facebook message</a>
+		{{end}}
+		{{if .Twitter}}
+		<li><a href="https://twitter.com/{{.Twitter}}">Tag {{.Failer}} on Twitter</a></li>
+		{{end}}
+		{{if .Linkedin}}
+		<li><a href="https://linkedin.com/in/{{.Linkedin}}">Share a post on {{.Failer}}'s LinkedIn</a></li>
+		{{end}}
+		{{if .Email}}
+		<li><a href="mailto:{{.Email}}">Send {{.Failer}} an email</a></li>
+		{{end}}
+	</ul>
+	{{else}}
+	<p><strong style="color: #048BA8">{{.Failer}}</strong> is a coward and did not want to give us any contact information.
+	But you know them, so go track them down.</p>
 	{{end}}
-	{{if .Facebook}}
-	<li><a href="https://facebook.com/{{.Facebook}}">Send {{.Failer}} a Facebook Message</a>
-	{{end}}
-	{{if .Twitter}}
-	<li><a href="https://twitter.com/{{.Twitter}}">@{{.Failer}} on Twitter</a></li>
-	{{end}}
-	{{if .Linkedin}}
-	<li><a href="https://linkedin.com/in/{{.Linkedin}}">Share a Post on {{.Failer}}'s LinkedIn</a></li>
-	{{end}}
-	{{if .Email}}
-	<li><a href="mailto:{{.Email}}">Send {{.Failer}} an email</a></li>
-	{{end}}
-</ul>
-{{else}}
-<p>{{.Failer}} is a coward and did not want to give us any contact information.
-But you know them, so go track them down.</p>
-{{end}}
+	<p>&lt;3 Accountabull</p>
+</div>
