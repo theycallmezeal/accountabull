@@ -4,20 +4,20 @@
 "<span>{{.Task}}</span>" by the deadline of {{.Time}} 🐄.</p>
 {{if or .Phone .Facebook .Twitter .Linkedin .Email}}
 <ul>
-	{{with .Phone}}
-	<li>Call or Text {{.Failer}}: {{.}}</li>
+	{{if .Phone}}
+	<li>Call or Text {{.Failer}}: {{.Phone}}</li>
 	{{end}}
-	{{with .Facebook}}
-	<li><a href="{{.}}">Send {{.Failer}} a Facebook Message</a>
+	{{if .Facebook}}
+	<li><a href="{{.Facebook}}">Send {{.Failer}} a Facebook Message</a>
 	{{end}}
-	{{with .Twitter}}
-	<li><a href="{{.}}">@{{.Failer}} on Twitter</a></li>
+	{{if .Twitter}}
+	<li><a href="{{.Twitter}}">@{{.Failer}} on Twitter</a></li>
 	{{end}}
-	{{with .Linkedin}}
-	<li><a href="{{.}}">Share a Post on {{.Failer}}'s LinkedIn</a></li>
+	{{if .Linkedin}}
+	<li><a href="{{.Linkedin}}">Share a Post on {{.Failer}}'s LinkedIn</a></li>
 	{{end}}
-	{{with .Email}}
-	<li><a href="{{.}}">Send {{.Failer}} an email</a></li>
+	{{if .Email}}
+	<li><a href="{{.Email}}">Send {{.Failer}} an email</a></li>
 	{{end}}
 </ul>
 {{else}}
