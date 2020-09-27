@@ -126,9 +126,12 @@ const app = new Vue({
 			var now = new Date();
 			for (i in this.tasks) {
 				if (this.tasks[i].time < now) {
-					// SEND REQUEST TO EMAIL HERE.
-					/**
-					this.$http.post("localhost:8080/send", {
+					var XHR = new XMLHttpRequest();
+					XHR.open("POST", "/send")
+					XHR.addEventListener("load", function(event) {
+						console.log(event);
+					});
+					XHR.send(JSON.stringify({
 						"recipients": this.friends,
 						"failer": this.name,
 						"task": this.tasks[i].name,
@@ -138,10 +141,7 @@ const app = new Vue({
 						"twitter": this.twitter,
 						"linkedin": this.linkedin,
 						"email": this.email
-					}).then(response => {
-						console.log(response);
-					});
-					**/
+					}));
 				}
 			}
 			this.tasks = this.tasks.filter(task => task.time > now);
