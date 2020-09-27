@@ -17,6 +17,10 @@ func Email(m *Message) error {
 		}
 	}
 	a := smtp.PlainAuth("", "apikey", password, "smtp.sendgrid.net")
+	m.Time, err = ReadableTime(m.Time)
+	if err != nil {
+		return err
+	}
 	for i := range m.Recipients {
 		message, err := getMessage(m, m.Recipients[i])
 		if err != nil {

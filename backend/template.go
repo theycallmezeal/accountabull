@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"bytes"
 	"fmt"
+	"time"
 )
 
 func getMessage(m *Message, recp Recipient) (*bytes.Buffer, error) {
@@ -19,4 +20,12 @@ func getMessage(m *Message, recp Recipient) (*bytes.Buffer, error) {
 	buf.WriteString("MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n")
 	err = t.Execute(buf, m)
 	return buf, err
+}
+
+func ReadableTime(ts string) (string, error) {
+	t, err := time.Parse(time.RFC3339, ts)
+	if err != nil {
+		return "", err
+	}
+	return t.Format(time.Kitchen), nil
 }
