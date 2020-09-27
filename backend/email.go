@@ -7,9 +7,10 @@ import (
 	"log"
 )
 
-func getMessage(m *Message) string {
+func getMessage(m *Message, recp Recipient) string {
 	subject := fmt.Sprintf("Subject: %s Failed to Complete a Task\n", m.Failer)
-	from := `From: "Accountabull" <accountabull@sendgrid.tookmund.com>\n`
+	from := "From: \"Accountabull\" <accountabull@sendgrid.tookmund.com>\n"
+	to := fmt.Sprintf("To: \"%s\" <%s>\n", recp.Name, recp.Email)
 	mime := "MIME-version: 1.0;\nContent-Type: text/plain; charset=\"UTF-8\";\n\n"
 	bug := ""
 	if m.Phone != "" {
@@ -30,26 +31,24 @@ func getMessage(m *Message) string {
 	if bug == "" {
 		bug = fmt.Sprintf("%s is a coward and did not want to give us any contact information. But you know them, so go track them down.\n", m.Failer)
 	}
-	body := fmt.Sprintf(`%s failed to complete "%s" at %s
-%s`, m.Failer, m.Task, m.Time, bug)
-	return fmt.Sprint(subject, from, mime, body)
+	body := fmt.Sprintf("Hi there %s!\nJust wanted to let you know that %s failed to complete \"%s\" by the deadline of %s 🐄.\n%s", recp.Name, m.Failer, m.Task, m.Time, bug)
+	return fmt.Sprint(subject, from, to, mime, body)
 }
 
 func Email(m *Message) error {
-	message := getMessage(m)
-	log.Printf("Message: %s", message)
-	to := make([]string, len(m.Recipients))
-	for i := range m.Recipients {
-		to[i] = m.Recipients[i].Email
-	}
-	log.Print(to)
-
 	password, err := ioutil.ReadFile(".sendgrid")
 	if err != nil {
 		return err
 	}
 	a := smtp.PlainAuth("", "apikey", string(password[:len(password)-1]), "smtp.sendgrid.net")
-	err = smtp.SendMail("smtp.sendgrid.net:587", a, "apikey", to, []byte(message))
+	for i := range m.Recipients {
+		message := getMessage(m, m.Recipients[i])
+		log.Printf("Message: %s", message)
+		err = smtp.SendMail("smtp.sendgrid.net:587", a, "apikey", []string{m.Recipients[i].Email}, []byte(message))
+		if err != nil {
+			return err
+		}
+	}
 	return err
 }
 
