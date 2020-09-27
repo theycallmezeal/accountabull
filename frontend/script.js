@@ -72,6 +72,16 @@ const app = new Vue({
 			task.time = datetime;
 		},
 		
+		removeOverdueTasks: function() {
+			var now = new Date();
+			for (i in this.tasks) {
+				if (this.tasks[i].time < now) {
+					// SEND REQUEST TO EMAIL HERE.
+				}
+			}
+			this.tasks = this.tasks.filter(task => task.time > now);
+		},
+		
 		addFriend: function() {
 			this.friends.push({"name": "", "email": "", "id": nextFriendID});
 			nextFriendID++;
