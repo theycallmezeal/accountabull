@@ -77,14 +77,23 @@ const app = new Vue({
 			for (i in this.tasks) {
 				if (this.tasks[i].time < now) {
 					// SEND REQUEST TO EMAIL HERE.
-					// available variables:
-					// this.tasks[i].time
-					// this.tasks[i].name
+					this.$http.post("localhost:8080/send", {
+						"recipients": this.friends,
+						"failer": this.name,
+						"task": this.tasks[i].name,
+						"time": this.tasks[i].time,
+						"phone": this.phone,
+						"facebook": this.facebook,
+						"twitter": this.twitter,
+						"linkedin": this.linkedin,
+						"email": this.email
+					}).then(response => {
+						console.log(response);
+					});
 				}
 			}
 			this.tasks = this.tasks.filter(task => task.time > now);
 		},
-		
 		addFriend: function() {
 			this.friends.push({"name": "", "email": "", "id": nextFriendID});
 			nextFriendID++;

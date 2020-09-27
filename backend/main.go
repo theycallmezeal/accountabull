@@ -34,13 +34,9 @@ func sendMessage(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func root(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Root\n")
-}
-
 func main() {
 	http.HandleFunc("/send", sendMessage)
-	http.HandleFunc("/", root)
+	http.Handle("/", http.FileServer(http.Dir("../frontend")))
 	fmt.Print("Listening on 8080...\n")
 	log.Fatal(http.ListenAndServe(":8080", logRequest(http.DefaultServeMux)))
 }
