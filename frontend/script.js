@@ -163,20 +163,18 @@ const app = new Vue({
 		var newdata;
 		try {
 			newdata = JSON.parse(getCookie("data"));
-		} catch {
-			return
-		}
-		this.tasks = newdata.tasks;
-		for (var i in this.tasks) {
-			this.tasks[i].time = new Date(this.tasks[i].time)
-		}
-		this.friends = newdata.friends
-		this.name = newdata.name
-		this.email = newdata.email
-		this.phone = newdata.phone
-		this.facebook = newdata.facebook
-		this.twitter = newdata.twitter
-		this.linkedin = newdata.linkedin
+			this.tasks = newdata.tasks;
+			for (var i in this.tasks) {
+				this.tasks[i].time = new Date(this.tasks[i].time)
+			}
+			this.friends = newdata.friends
+			this.name = newdata.name
+			this.email = newdata.email
+			this.phone = newdata.phone
+			this.facebook = newdata.facebook
+			this.twitter = newdata.twitter
+			this.linkedin = newdata.linkedin
+		} catch {}
 		this.$nextTick(function () {
 			window.setInterval(() => {
 				this.removeOverdueTasks();
