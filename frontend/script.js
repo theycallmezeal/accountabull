@@ -18,10 +18,10 @@ const app = new Vue({
 		friends: [],
 		name: [],
 		email: "",
+		phone: "",
 		facebook: "",
 		twitter: "",
 		linkedin: "",
-		phone: ""
 	},
 	methods: {
 		addTask: function() {
@@ -63,6 +63,10 @@ const app = new Vue({
 			datetime.setMonth(month);
 			datetime.setDate(day);
 			task.time = datetime;
+		},
+		
+		addFriend: function() {
+			this.friends.push({"name": "", "email": ""});
 		}
 	},
 	computed: {

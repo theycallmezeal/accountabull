@@ -35,9 +35,26 @@
 			</div>
 			<div v-else-if="path == '/profile'">
 				<h2>My Profile</h2>
+				<p><label>Name</label><input type="text" v-model="name"></p>
+				<p><label>Email</label><input type="email" v-model="email"></p>
+				<p><label>Phone number</label><input type="tel" v-model="phone"></p>
+				<p><label>Facebook</label> facebook.com/<input type="text" v-model="facebook"></p>
+				<p><label>Twitter</label> @<input type="text" v-model="twitter"></p>
+				<p><label>LinkedIn</label> linkedin.com/<input type="text" v-model="linkedin"></p>
 			</div>
 			<div v-else-if="path == '/friends'">
 				<h2>My Friends</h2>
+				<div v-if="friends.length == 0">
+					<p>Moo!<br>(You don't have any friends yet!)</p>
+					<button v-on:click="addFriend()">Add a friend</button>
+				</div>
+				<div v-else>
+					<button v-on:click="addFriend()">Add a task</button>
+					<div v-for="friend in friends">
+						<input type="text" placeholder="Name" v-model="friend.name">
+						<input type="email" placeholder="Email" v-model="friend.email">
+					</div>
+				</div>
 			</div>
 		</div>
 	</body>
