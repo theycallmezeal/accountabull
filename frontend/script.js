@@ -14,7 +14,7 @@ const app = new Vue({
 	el: "#app",
 	router: new VueRouter({ routes: routes }),
 	data: {
-		tasks: [{"name": "Do laundry", "time": new Date()}],
+		tasks: [],
 		friends: [],
 		name: [],
 		email: "",
@@ -24,6 +24,12 @@ const app = new Vue({
 		phone: ""
 	},
 	methods: {
+		addTask: function() {
+			var tomorrow = new Date();
+			tomorrow.setDate(tomorrow.getDate() + 1);
+			this.tasks.push({"name": "", "time": tomorrow});
+		},
+		/* https://stackoverflow.com/questions/48794066/vuejs-how-to-bind-a-datetime */
 		getDate: function(datetime) {
 			const offset = datetime.getTimezoneOffset()
 			datetime = new Date(datetime.getTime() - (offset*60*1000))
