@@ -59,47 +59,30 @@ const app = new Vue({
 	},
 	methods: {
 		saveData: function () {
-		},
-		created: function () {
-			this.id = getCookie("id");
-			if (this.id == "") {
-				this.id = uuidv4();
-			} else {
-				var vue = this;
-				var XHR = new XmlHttpRequest();
-				XHR.open("GET", "/users/"+this.id)
-				XHR.addEventListener("load", function(event) {
-					console.log(XHR.response);
-					var newdata = XHR.response;
-					vue.tasks = newdata.tasks;
-					vue.friends = newdata.friends
-					vue.name = newdata.name
-					vue.email = newdata.email
-					vue.phone = newdata.phone
-					vue.facebook = newdata.facebook
-					vue
-				})
-				XHR.send()
-				this.tasks = newdata.tasks
-				this.friends = newdata.friends
-				this.name
-			}
-			if (user != "" && user != null) {
-      			setCookie("username", user, 365);
-			}
-    }
-  }
+			var XHR = new XMLHttpRequest();
+			XHR.open("POST", "/users/"+this.id)
+			XHR.addEventListener("load", function(event) {
+				console.log(event);
+			});
+			XHR.send(JSON.stringify({
+				"tasks": this.tasks,
+				"friends": this.friends,
+				"name": this.name,
+				"email": this.email,
+				"phone": this.phone,
+				"facebook": this.facebook,
+				"twitter": this.twitter,
+				"linkedin": this.linkedin,
+			}));
 		},
 		addTask: function() {
 			var tomorrow = new Date();
 			tomorrow.setDate(tomorrow.getDate() + 1);
 			this.tasks.push({"name": "", "time": tomorrow, "id": nextTaskID});
 			nextTaskID++;
-			saveData();
 		},
 		removeTask: function(id) {
 			this.tasks = this.tasks.filter(task => task.id != id);
-			saveData();
 		},
 		/* https://stackoverflow.com/questions/48794066/vuejs-how-to-bind-a-datetime */
 		getDate: function(datetime) {
@@ -115,7 +98,6 @@ const app = new Vue({
 			datetime.setHours(hours);
 			datetime.setMinutes(minutes);
 			task.time = datetime;
-			saveData();
 		},
 		getTime: function(datetime) {
 			var hours = datetime.getHours() + "";
@@ -163,16 +145,13 @@ const app = new Vue({
 				}
 			}
 			this.tasks = this.tasks.filter(task => task.time > now);
-			saveData();
 		},
 		addFriend: function() {
 			this.friends.push({"name": "", "email": "", "id": nextFriendID});
 			nextFriendID++;
-			saveData();
 		},
 		removeFriend: function(id) {
 			this.friends = this.friends.filter(friend => friend.id != id);
-			saveData();
 		}
 	},
 	computed: {
@@ -187,7 +166,32 @@ const app = new Vue({
 		this.$nextTick(function () {
 			window.setInterval(() => {
 				this.removeOverdueTasks();
+				this.saveData();
 			},1000);
 		})
+		this.id = getCookie("id");
+		if (this.id == "") {
+			this.id = uuidv4();
+		} else {
+			var vue = this;
+			var XHR = new XMLHttpRequest();
+			XHR.open("GET", "/users/"+this.id)
+			XHR.addEventListener("load", function(event) {
+				console.log(XHR.response);
+				if (XHR.response == "" ||
+					XHR.response == "404 page not found") return;
+				var newdata = JSON.parse(XHR.response);
+				vue.tasks = newdata.tasks;
+				vue.friends = newdata.friends
+				vue.name = newdata.name
+				vue.email = newdata.email
+				vue.phone = newdata.phone
+				vue.facebook = newdata.facebook
+				vue.twitter = newdata.twitter
+				vue.linkedin = newdata.linkedin
+			});
+			XHR.send()
+		}
+   		setCookie("id", this.id, 365);
     }
 });
