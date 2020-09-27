@@ -31,7 +31,7 @@ func getMessage(m *Message) string {
 		bug = fmt.Sprintf("%s is a coward and did not want to give us any contact information. But you know them, so go track them down.\n", m.Failer)
 	}
 	body := fmt.Sprintf(`%s failed to complete "%s" at %s
-	%s`, m.Failer, m.Task, m.Time, bug)
+%s`, m.Failer, m.Task, m.Time, bug)
 	return fmt.Sprint(subject, from, mime, body)
 }
 
